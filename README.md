@@ -1,5 +1,7 @@
 # Remora - A collection of helpful fish functions
-## WIP
+
+## ⚠️⚠️ WIP ⚠️⚠️
+
 ---
 
 ### Functions
@@ -15,7 +17,9 @@
 - `mdcd` - create and cd into a directory
 
 ### Installation
+
 #### Using [Fisher](https://github.com/jorgebucaran/fisher):
+
 ```fish
 fisher install charitarthchugh/remora.fish
 ```
