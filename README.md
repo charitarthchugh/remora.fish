@@ -18,6 +18,8 @@
 
 - autonvm - automatically set the node version (includes installing) defined in the current directory if nvm is present
 
+- autovenv - auto-activates a python venv even if you are in a subdirectory of one (Thanks @timothybrown)
+
 ### Installation
 
 #### Using [Fisher](https://github.com/jorgebucaran/fisher):
