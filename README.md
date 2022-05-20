@@ -16,6 +16,8 @@
 
 - `mdcd` - create and cd into a directory
 
+- autonvm - automatically set the node version (includes installing) defined in the current directory if nvm is present
+
 ### Installation
 
 #### Using [Fisher](https://github.com/jorgebucaran/fisher):
