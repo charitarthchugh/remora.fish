@@ -2,7 +2,7 @@ name: Check pipx Release and Update
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Runs weekly at midnight at UTC
+    - cron: '0 0 * * *'  # Runs daily at midnight UTC
   workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
@@ -18,8 +18,12 @@ jobs:
         with:
           python-version: '3.x'  # Use an appropriate Python version
 
-      - name: Install curl
-        run: sudo apt-get install -y curl
+      - name: Install pipx using pip
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --upgrade pipx
+          export PATH="$HOME/.local/bin:$PATH"
+          pipx --version
 
       - name: Get Latest pipx Version
         id: get_latest_pipx_version
@@ -41,13 +45,6 @@ jobs:
           else
             echo "new_version=false" >> $GITHUB_ENV
           fi
-
-      - name: Install pipx
-        if: env.new_version == 'true'
-        run: |
-          curl -sSL https://raw.githubusercontent.com/pipxproject/pipx/master/get-pipx.py | python3 -
-          export PATH="$HOME/.local/bin:$PATH"
-          pipx --version
 
       - name: Export Fish Completions
         if: env.new_version == 'true'
