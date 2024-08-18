@@ -1,30 +1,31 @@
-# Remora - A collection of helpful fish functions
+# Remora - Essential Fish Functions & Completions
 
-## ⚠️⚠️ WIP ⚠️⚠️
+## 🚧 Work In Progress 🚧
 
 ---
 
-### Functions
+### 📄 Functions
 
-- `clone` - Clones a repo using git
+- **`clone`**: Clone a Git repository with ease.
+- **`clonecd`**: Clone a Git repository and immediately navigate into it.
+- **`ex`**: Extract files from common archive formats effortlessly.
+- **`md`**: A quick shortcut for `mkdir -p`.
+- **`mdcd`**: Create a directory and navigate into it in one step.
+- **`autonvm`**: Automatically set and install the Node.js version defined in the current directory using nvm (if available).
 
-- `clonecd` - Uses clone to clone a repo and cd into it
+### 🔧 CLI Completions
 
-- `ex` - extracts common archive formats
+Now with autocomplete support for popular command-line utilities:
+- **pipx**
+- **poetry**
 
-- `md` - shorthand for mkdir -p
+Want more completions? Request them by creating an issue or submitting a pull request!
 
-- `mdcd` - create and cd into a directory
+### 🚀 Installation
 
-- autonvm - automatically set the node version (includes installing) defined in the current directory if nvm is present
-### Completions for popular CLI utilities
-- pipx
-- poetry
-- Request completions by creating an issue! (or file a PR)
-### Installation
-
-#### Using [Fisher](https://github.com/jorgebucaran/fisher):
+Install Remora using [Fisher](https://github.com/jorgebucaran/fisher):
 
 ```fish
 fisher install charitarthchugh/remora.fish
 ```
+
