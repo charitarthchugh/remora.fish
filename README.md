@@ -20,6 +20,7 @@
 ### Completions for popular CLI utilities
 - pipx
 - poetry
+- Request completions by creating an issue! (or file a PR)
 ### Installation
 
 #### Using [Fisher](https://github.com/jorgebucaran/fisher):
