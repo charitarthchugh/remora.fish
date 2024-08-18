@@ -1,0 +1,61 @@
+name: Check pipx Release and Update
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Runs weekly at midnight at UTC
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  update-pipx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Use an appropriate Python version
+
+      - name: Install curl
+        run: sudo apt-get install -y curl
+
+      - name: Get Latest pipx Version
+        id: get_latest_pipx_version
+        run: |
+          latest_version=$(curl -s https://api.github.com/repos/pipxproject/pipx/releases/latest | jq -r '.tag_name')
+          echo "::set-output name=version::$latest_version"
+
+      - name: Check Current pipx Version
+        id: check_current_version
+        run: |
+          current_version=$(pipx --version | awk '{print $3}')
+          echo "::set-output name=current_version::$current_version"
+
+      - name: Compare Versions
+        id: compare_versions
+        run: |
+          if [ "${{ steps.get_latest_pipx_version.outputs.version }}" != "${{ steps.check_current_version.outputs.current_version }}" ]; then
+            echo "new_version=true" >> $GITHUB_ENV
+          else
+            echo "new_version=false" >> $GITHUB_ENV
+          fi
+
+      - name: Install pipx
+        if: env.new_version == 'true'
+        run: |
+          curl -sSL https://raw.githubusercontent.com/pipxproject/pipx/master/get-pipx.py | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
+          pipx --version
+
+      - name: Export Fish Completions
+        if: env.new_version == 'true'
+        run: |
+          mkdir -p completions
+          pipx completions fish > completions/pipx.fish
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add completions/pipx.fish
+          git commit -m "Update pipx to ${{ steps.get_latest_pipx_version.outputs.version }} and export fish completions"
+          git push origin HEAD:main
