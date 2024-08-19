@@ -1,4 +1,4 @@
-# Remora - Essential Fish Functions & Completions
+# Remora  
 
 ## 🚧 Work In Progress 🚧
 
