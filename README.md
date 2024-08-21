@@ -18,7 +18,7 @@
 Now with autocomplete support for popular command-line utilities:
 - **pipx**
 - **poetry**
-
+*Disclaimer: The license for each completion file provided is licensed under that project's license.*
 Want more completions? Request them by creating an issue or submitting a pull request!
 
 ### 🚀 Installation
