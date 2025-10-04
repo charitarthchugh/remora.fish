@@ -1,7 +1,20 @@
 function clone -d "Clone a directory using Git"
-    if string match -q "https://" $argv[1] or not (type -q gh)
-        command git clone $argv
-    else
-        command gh repo clone $argv[1] -- $argv[2..-1]
+    set -l target $argv[1]
+
+    # Prefer gh when:
+    # - target is in username/repo-name format (contains exactly one slash and no scheme)
+    # - or target starts with https://github.com
+    # Fallback to git otherwise.
+    if type -q gh
+        if string match -q -- 'https://github.com/*' $target
+            command gh repo clone $target -- $argv[2..-1]
+            return
+        end
+        if string match -rq -- '^[^/]+/[^/]+$' -- $target
+            command gh repo clone $target -- $argv[2..-1]
+            return
+        end
     end
+
+    command git clone $argv
 end
